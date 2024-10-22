@@ -22,34 +22,34 @@
       nomodule
       src="//lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/4.6.3/ionicons/ionicons.js"
     ></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-          // Array of image paths
-          const images = [
-            'image.jpg',
-            //'image/image2.jpg',
-            //'image/image3.jpg',
-            // Add all image paths here
-          ];
-  
-          // Function to set a random background image
-          function setRandomBackground() {
-            const randomIndex = Math.floor(Math.random() * images.length);
-            const selectedImage = images[randomIndex];
-            $('body').css('background-image', `url(${selectedImage})`);
-          }
-  
-          // Set a random background image on page load
-          setRandomBackground();
-        });
-      </script>
+    
     <style>
-  .background-container {
+        /* 针对 WebKit 浏览器的样式 */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.5); /* 可以根据需要调整颜色和透明度 */
+      border-radius: 10px;
+      border: 3px solid transparent; /* 根据需要调整 */
+      background-clip: content-box;
+    }
+
+    /* 针对 Firefox 浏览器的样式 */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.5) rgba(255, 255, 255, 0.4); /* 前一个颜色是滚动条颜色，后一个是轨道颜色 */
+    }
+    .background-container {
     position: relative;
     width: 100%;
     height: 100vh; /* Adjust as needed */
-    background-image: url('path/to/your/background-image.jpg'); /* Adjust the path */
+    background-image: url('image.jpg'); /* Adjust the path */
     background-size: cover;
     background-position: center;
   }
@@ -61,22 +61,14 @@
     width: 100%;
     height: 100%;
     background-color: rgba(255,255,255, 0); /* Adjust the color and opacity */
-    pointer-events: none; /* Ensures the overlay doesn't affect other elements */
+    z-index: 1; /* Ensure the overlay is behind other content */
+    pointer-events: none;
   }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
 
-    body {
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 1s ease-in-out;
-      position: relative;
-    }
-
+  .content {
+    position: relative;
+    z-index: 2; /* Ensure the content is above the overlay */
+  }
     /* Semi-transparent overlay */
     body::after {
       content: "";
@@ -223,7 +215,7 @@
         text-align: center;
         border: none;
         outline: none;
-        background: white;
+        background: transparent;
         cursor: pointer;
       }
 
@@ -1997,6 +1989,7 @@
   <body>
     <div class="background-container">
       <div class="overlay"></div>
+      <div class="content">
     <template id="tree-node-wrapper-template">
       <div class="tree-node-wrapper">
         <div class="tree-node">
@@ -2103,6 +2096,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>
